@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Persistance;
+using Persistence;
 using System;
 
 namespace API
@@ -22,6 +22,7 @@ namespace API
 				{
 					var context = services.GetRequiredService<DataContext>();
 					context.Database.Migrate();
+					Seed.SeedData(context);
 				}
 				catch (Exception ex)
 				{
