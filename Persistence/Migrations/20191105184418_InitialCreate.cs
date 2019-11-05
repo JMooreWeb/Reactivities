@@ -14,7 +14,7 @@ namespace Persistence.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Title = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    Category = table.Column<int>(nullable: false),
+                    Category = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
                     City = table.Column<string>(nullable: true),
                     Venue = table.Column<string>(nullable: true)
