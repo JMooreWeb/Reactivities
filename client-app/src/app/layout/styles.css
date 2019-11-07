@@ -41,3 +41,8 @@ body {
 }
 
 /*end home page styles*/
+
+
+input#rw_1_input, input#rw_2_input {
+  border: none;
+}
