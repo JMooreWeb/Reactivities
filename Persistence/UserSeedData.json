@@ -1,0 +1,52 @@
+[
+    {
+        "Username": "James",
+        "Title": "Past Activity 1",
+        "Date": "1984-02-19",
+        "Description": "Activity 1 month ago",
+        "Category": "film",
+        "City": "Orlando",
+        "Venue": "Museum",
+        "LastActive": "2019-07-11"
+    },
+    {
+        "Username": "James",
+        "Title": "Past Activity 1",
+        "Date": "1984-02-19",
+        "Description": "Activity 1 month ago",
+        "Category": "travel",
+        "City": "Orlando",
+        "Venue": "Museum",
+        "LastActive": "2019-07-11"
+    },
+    {
+        "Username": "Sarah",
+        "Title": "Past Activity 2",
+        "Date": "1984-02-19",
+        "Description": "Activity 1 month ago",
+        "Category": "music",
+        "City": "Orlando",
+        "Venue": "Museum",
+        "LastActive": "2019-07-11"
+    },
+    {
+        "Username": "Olivia",
+        "Title": "Past Activity 3",
+        "Date": "1984-02-19",
+        "Description": "Activity 1 month ago",
+        "Category": "culture",
+        "City": "Orlando",
+        "Venue": "Museum",
+        "LastActive": "2019-07-11"
+    },
+    {
+        "Username": "Olivia",
+        "Title": "Future Activity 1",
+        "Date": "1984-02-19",
+        "Description": "Activity 1 month ago",
+        "Category": "drinks",
+        "City": "Orlando",
+        "Venue": "Museum",
+        "LastActive": "2019-07-11"
+    }
+]
