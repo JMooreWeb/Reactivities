@@ -1,6 +1,7 @@
 using API.Middleware;
 using Application.Activities;
 using Application.Interfaces;
+using AutoMapper;
 using Domain;
 using FluentValidation.AspNetCore;
 using Infrastructure.Security;
@@ -18,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using Persistence;
 using System.Text;
 
@@ -46,7 +48,7 @@ namespace API
 			//	options.AddPolicy("CorsPolicy", policy =>
 			//	{
 			//		policy.AllowAnyOrigin().AllowAnyMethod()
-   //                     .AllowAnyHeader().WithOrigins("http://localhost:3000");
+            //         .AllowAnyHeader().WithOrigins("http://localhost:3000");
 			//	});
 			//});
 
@@ -57,16 +59,26 @@ namespace API
                 var policy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser().Build();
                     
-                options.Filters.Add(new AuthorizeFilter(policy));
+                options.Filters.Add(new AuthorizeFilter(policy));                
             })
+                .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
+                
                 .AddFluentValidation(config => 
                     config.RegisterValidatorsFromAssemblyContaining<Create>());
 
             var builder = services.AddIdentityCore<AppUser>();
-
             var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
             identityBuilder.AddEntityFrameworkStores<DataContext>();
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
+
+            services.AddAuthorization(options => {
+                options.AddPolicy("IsActivityHost", policy => 
+                {
+                    policy.Requirements.Add(new IsHostRequirement());
+                });
+            });
+
+            services.AddTransient<IAuthorizationHandler, IsHostRequirementHandler>();
 
 			services.TryAddSingleton<ISystemClock, SystemClock>();
 
@@ -86,6 +98,8 @@ namespace API
 			services.AddScoped<IJwtGenerator, JwtGenerator>();
 
             services.AddScoped<IUserAccessor, UserAccessor>();
+
+            services.AddAutoMapper(typeof(List.Handler));
 
             // IdentityBuilder builder = services.AddIdentityCore<AppUser>(options =>
             // {
