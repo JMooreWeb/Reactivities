@@ -8,19 +8,17 @@ using Newtonsoft.Json;
 
 namespace API.Middleware
 {
-    public class ErrorHandlingMiddleware : Exception
+    public class ErrorHandlingMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<ErrorHandlingMiddleware> _logger;
-
-        public ErrorHandlingMiddleware(RequestDelegate next,
-            ILogger<ErrorHandlingMiddleware> logger)
+        public ErrorHandlingMiddleware(RequestDelegate next, ILogger<ErrorHandlingMiddleware> logger)
         {
-            _next = next;
             _logger = logger;
+            _next = next;
         }
 
-        public async Task Invoke(HttpContext context) 
+        public async Task Invoke(HttpContext context)
         {
             try
             {
@@ -32,8 +30,7 @@ namespace API.Middleware
             }
         }
 
-        private async Task HandleExceptionAsync(HttpContext context, 
-            Exception ex, ILogger<ErrorHandlingMiddleware> logger)
+        private async Task HandleExceptionAsync(HttpContext context, Exception ex, ILogger<ErrorHandlingMiddleware> logger)
         {
             object errors = null;
 
@@ -52,7 +49,6 @@ namespace API.Middleware
             }
 
             context.Response.ContentType = "application/json";
-
             if (errors != null)
             {
                 var result = JsonConvert.SerializeObject(new

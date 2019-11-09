@@ -4,7 +4,6 @@ using Application.Interfaces;
 using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Persistence;
 
 namespace Application.User
 {
@@ -17,13 +16,11 @@ namespace Application.User
             private readonly UserManager<AppUser> _userManager;
             private readonly IJwtGenerator _jwtGenerator;
             private readonly IUserAccessor _userAccessor;
-
             public Handler(UserManager<AppUser> userManager, IJwtGenerator jwtGenerator, IUserAccessor userAccessor)
             {
                 _userAccessor = userAccessor;
                 _jwtGenerator = jwtGenerator;
                 _userManager = userManager;
-
             }
 
             public async Task<User> Handle(Query request, CancellationToken cancellationToken)
